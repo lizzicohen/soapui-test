@@ -18,7 +18,14 @@
             <plugin>
                 <groupId>com.smartbear.soapui</groupId>
                 <artifactId>soapui-pro-maven-plugin</artifactId>
-                <version>5.0.0</version>  
+                <version>5.0.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>9.2-1002-jdbc4</version>
+                    </dependency>
+                </dependencies>    
                 <executions>
                     <execution>
                         <phase>test</phase>
