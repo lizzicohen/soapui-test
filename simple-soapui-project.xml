@@ -10,7 +10,7 @@ def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 //获取上下文对象,转化成groovyUtils对象
 def wsdlResponse=testRunner.testCase.testSteps["departmentQuery"].getTestRequest().getResponseContentAsXml()
 //com.eviware.soapui.impl.wsdl.teststeps.WsdlDataSourceTestStep
-File log = new File("/home/qchat/cop/test.log")
+File log = new File("test.log")
 log.withWriterAppend( 'GB2312' ){ w->
 def line = context.expand( '${DataSource#line}' )
    w&lt;&lt;wsdlResponse+'\n'
