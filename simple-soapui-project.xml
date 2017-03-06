@@ -10,8 +10,50 @@ def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 //获取上下文对象,转化成groovyUtils对象
 def wsdlResponse=testRunner.testCase.testSteps["departmentQuery"].getTestRequest().getResponseContentAsXml()
 //com.eviware.soapui.impl.wsdl.teststeps.WsdlDataSourceTestStep
-File log = new File("test.log")
+
 log.withWriterAppend( 'GB2312' ){ w->
-def line = context.expand( '${DataSource#line}' )
    w&lt;&lt;wsdlResponse+'\n'
-}</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
+}</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties><con:property><con:name>LogFolder</con:name><con:value>SoapUI-Log</con:value></con:property><con:property><con:name>ExcelReport</con:name><con:value>SoapUI_log/COP-Report.xls</con:value></con:property></con:properties><con:setupScript>import java.io.*;
+import jxl.*;
+import jxl.write.*;
+import java.util.*;
+
+def updateOutput(writableWorkbook,sheetName,column,row,content){
+		Sheet[] sheet= writableWorkbook.getSheets();
+		ws = writableWorkbook.getSheet(sheetName);
+		if(ws==null){
+		ws = writableWorkbook.createSheet(sheetName,sheet.length)
+		}
+		ws.addCell(new jxl.write.Label(column,row,content));
+}
+
+def logFolder = new File(context.expand('${#TestSuite#LogFolder}'));
+def flagFileName = (context.expand('${#TestSuite#LogFolder}')+"flag.txt");
+def flagFile = new File(flagFileName);
+def excelName = (context.expand('${#TestSuite#ExcelReport}'));
+def worksheet = "Result";
+
+WritableWorkbook workbook;
+try{
+	workbook = Workbook.createWorkbook(new File(excelName));
+	WritableSheet sheet = workbook.createSheet(worksheet, 0);
+	updateOutput(workbook,worksheet,0,0,"Case ID");
+	updateOutput(workbook,worksheet,1,0,"Description");
+	updateOutput(workbook,worksheet,2,0,"Response Code");
+	updateOutput(workbook,worksheet,3,0,"Expected Code");
+	updateOutput(workbook,worksheet,4,0,"Result");
+	updateOutput(workbook,worksheet,5,0,"Response Details");
+	workbook.write();
+	workbook.close();
+}catch(Exception e){
+	e.printStackTrace();
+	log.info(e);
+}
+if(!logFolder.exists()){
+	logFolder.mkdirs();
+	}
+if(!flagFile.exists()){
+	flagFile.createNewFile();
+	flagFile.write("1");
+}
+flagFile.write("1");</con:setupScript><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
