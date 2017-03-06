@@ -13,7 +13,7 @@ def wsdlResponse=testRunner.testCase.testSteps["departmentQuery"].getTestRequest
 
 log.withWriterAppend( 'GB2312' ){ w->
    w&lt;&lt;wsdlResponse+'\n'
-}</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties><con:property><con:name>LogFolder</con:name><con:value>SoapUI-Log</con:value></con:property><con:property><con:name>ExcelReport</con:name><con:value>SoapUI_log/COP-Report.xls</con:value></con:property></con:properties><con:setupScript>import java.io.*;
+}</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties><con:property><con:name>LogFolder</con:name><con:value>SoapUI_Log</con:value></con:property><con:property><con:name>ExcelReport</con:name><con:value>SoapUI_log/COP-Report.xls</con:value></con:property></con:properties><con:setupScript>import java.io.*;
 import jxl.*;
 import jxl.write.*;
 import java.util.*;
@@ -28,7 +28,7 @@ def updateOutput(writableWorkbook,sheetName,column,row,content){
 }
 
 def logFolder = new File(context.expand('${#TestSuite#LogFolder}'));
-def flagFileName = (context.expand('${#TestSuite#LogFolder}')+"flag.txt");
+def flagFileName = (context.expand('${#TestSuite#LogFolder}')+"/flag.txt");
 def flagFile = new File(flagFileName);
 def excelName = (context.expand('${#TestSuite#ExcelReport}'));
 def worksheet = "Result";
